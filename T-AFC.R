@@ -1,5 +1,5 @@
 #================================================================================================================================================================================================================================================#
-#                       CONFIRMATORY FACTOR ANALYSIS (CFA - AFC)
+#                       CONFIRMATORY FACTOR ANALYSIS (CFA)
 #================================================================================================================================================================================================================================================#
 #Funcion Para Instalar Varios Paquetes.
 ipak <- function(pkg){
@@ -13,7 +13,7 @@ packages <- c("readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr
 ipak(packages)
 
 #Importar la Base de Datos
-BDT <- read_excel("G:/OLID JP/Proyecto de tesis/BDTesis-DLA.xlsx")
+BDT <- read_excel("G:/OLID JP/GitHub Repositorio/Practicando-R/BDTesis-DLA.xlsx")
 View(BDT)
 
 #Especificación del modelo conceptual
