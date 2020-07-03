@@ -9,7 +9,7 @@ ipak <- function(pkg){
   sapply(pkg, require, character.only = TRUE)
 }
 # Paquetes a Usar
-packages <- c("readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr","gridExtra","apaTables", "reshape", "GPArotation", "mvtnorm", "psych", "psychometric", "lavaan", "nFactors", "semPlot", "lavaan", "MVN", "semTools")
+packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr","gridExtra","apaTables", "reshape", "GPArotation", "mvtnorm", "psych", "psychometric", "lavaan", "nFactors", "semPlot", "lavaan", "MVN", "semTools")
 ipak(packages)
 
 #Importar la Base de Datos
@@ -36,4 +36,38 @@ fitMeasures(AFCSixFactor)
 
 #Graficar el AFC del Modelo
 semPaths(AFCSixFactor, intercepts = FALSE,edge.label.cex=1, optimizeLatRes = TRUE, groups = "lat",pastel = TRUE, exoVar = FALSE, sizeInt=5,edge.color ="black",esize = 6, label.prop=1,sizeLat = 7,"std", layout="circle2")
+
+#================================================================================================================================================================================================================================================#
+#                       ANALISIS DESCRIPTIVOS
+#================================================================================================================================================================================================================================================#
+
+#Grafica de la Edad en Percentages
+
+PCiclo<-BDT %>% 
+  group_by(Genero) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(percentage=`n`/sum(`n`) * 100)
+
+ggplot(PCiclo, aes(x=1, y=percentage, fill=Genero)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(round(percentage,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + scale_fill_manual(values = c("Orange2","steelblue")) + ggtitle("Porcentage de Genero de los Estudiantes Encunestados del Área de Derecho y Humanidades de la UNASAM")
+#https://www.youtube.com/watch?v=EQNm0Dcte3Y
+
+#https://germangfeler.github.io/datascience/barras-y-tortas/
+#Edad segun genero
+
+ggplot(BDT, aes(Edad)) + 
+  geom_bar(aes(fill=Genero), position = "dodge") + 
+  theme_classic()
+
+#
+
+
+
+#https://www.youtube.com/watch?v=aJBiXcjQZiA
+
 
