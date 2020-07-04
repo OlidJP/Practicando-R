@@ -58,11 +58,11 @@ ggplot(PCiclo, aes(x=1, y=percentage, fill=Genero)) +
 #https://www.youtube.com/watch?v=EQNm0Dcte3Y
 
 #https://germangfeler.github.io/datascience/barras-y-tortas/
+
+
 #Edad segun genero
 
-ggplot(BDT, aes(Edad)) + 
-  geom_bar(aes(fill=Genero), position = "dodge") + 
-  theme_classic()
+ggplot(BDT, aes(Edad)) + geom_bar(aes(fill=Genero), position = "dodge") + theme_classic()
 
 #
 
