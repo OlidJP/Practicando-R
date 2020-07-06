@@ -72,7 +72,7 @@ PEdad<- BDT %>%
 
 ggplot(PEdad, aes(x=Edad, y=Porcentaje)) + 
   geom_bar(stat="identity", fill="steelblue") + 
-  theme_classic2() + 
+  theme_cleveland() + 
   coord_flip() + 
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
   ggtitle("Edad de los Estudiantes Encuestados")
@@ -88,7 +88,7 @@ PCiclo<- BDT %>%
 
 ggplot(PCiclo, aes(x=Ciclo, y=Porcentaje)) + 
   geom_bar(stat="identity", fill="steelblue") + 
-  theme_classic2() + 
+  theme_cleveland() + 
   coord_flip() + #Grafica Horizontal
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
   ggtitle("Procentaje de Estudiantes Encuestados segun el Ciclo el que cruzan")
@@ -103,7 +103,7 @@ PEscuelaP<- BDT %>%
 
 ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) + 
   geom_bar(stat="identity", fill="steelblue") + 
-  theme_classic2() + 
+  theme_cleveland() + 
   coord_flip() +
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
   ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales")
