@@ -9,7 +9,9 @@ ipak <- function(pkg){
   sapply(pkg, require, character.only = TRUE)
 }
 # Paquetes a Usar
-packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr","gridExtra","apaTables", "reshape", "GPArotation", "mvtnorm", "psych", "psychometric", "lavaan", "nFactors", "semPlot", "lavaan", "MVN", "semTools")
+packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr","gridExtra",
+              "apaTables", "reshape", "GPArotation", "mvtnorm", "psych", "psychometric", "lavaan", "nFactors",
+              "semPlot", "lavaan", "MVN", "semTools")
 ipak(packages)
 
 #Importar la Base de Datos
@@ -35,39 +37,96 @@ summary(AFCSixFactor, fit.measures=TRUE, standardized=TRUE)
 fitMeasures(AFCSixFactor)
 
 #Graficar el AFC del Modelo
-semPaths(AFCSixFactor, intercepts = FALSE,edge.label.cex=1, optimizeLatRes = TRUE, groups = "lat",pastel = TRUE, exoVar = FALSE, sizeInt=5,edge.color ="black",esize = 6, label.prop=1,sizeLat = 7,"std", layout="circle2")
+semPaths(AFCSixFactor, intercepts = FALSE,edge.label.cex=1, optimizeLatRes = TRUE,
+         groups = "lat",pastel = TRUE, exoVar = FALSE, sizeInt=5,edge.color ="black",
+         esize = 6, label.prop=1,sizeLat = 7,"std", layout="circle2")
 
 #================================================================================================================================================================================================================================================#
 #                       ANALISIS DESCRIPTIVOS
 #================================================================================================================================================================================================================================================#
 
-#Grafica de la Edad en Percentages
+#Grafica de la Genero
 
-PCiclo<-BDT %>% 
+PGenero<-BDT %>% 
   group_by(Genero) %>% 
   count() %>% 
   ungroup() %>% 
-  mutate(percentage=`n`/sum(`n`) * 100)
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
 
-ggplot(PCiclo, aes(x=1, y=percentage, fill=Genero)) +
+ggplot(PGenero, aes(x=1, y=Porcentaje, fill=Genero)) +
   geom_bar(stat="identity") +
-  geom_text(aes(label = paste0(round(percentage,1),"%")), 
-            position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + #Etiqueta de datos
   coord_polar(theta = "y") + 
-  theme_void() + scale_fill_manual(values = c("Orange2","steelblue")) + ggtitle("Porcentage de Genero de los Estudiantes Encunestados del Área de Derecho y Humanidades de la UNASAM")
-#https://www.youtube.com/watch?v=EQNm0Dcte3Y
-
-#https://germangfeler.github.io/datascience/barras-y-tortas/
-
-
-#Edad segun genero
-
-ggplot(BDT, aes(Edad)) + geom_bar(aes(fill=Genero), position = "dodge") + theme_classic()
-
-#
+  theme_void() + 
+  scale_fill_manual(values = c("Orange2","steelblue")) + 
+  ggtitle("Porcentaje de Genero de los Estudiantes Encunestados del Área de Derecho y Humanidades de la UNASAM")
 
 
+# Grafica Edad 
 
-#https://www.youtube.com/watch?v=aJBiXcjQZiA
+PEdad<- BDT %>% 
+  group_by(Edad) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
 
+ggplot(PEdad, aes(x=Edad, y=Porcentaje)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  theme_classic2() + 
+  coord_flip() + 
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  ggtitle("Edad de los Estudiantes Encuestados")
+# NOTA: CORREGIR EL EJE X
+
+#Grafica para Ciclo
+
+PCiclo<- BDT %>% 
+  group_by(Ciclo) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
+
+ggplot(PCiclo, aes(x=Ciclo, y=Porcentaje)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  theme_classic2() + 
+  coord_flip() + #Grafica Horizontal
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  ggtitle("Procentaje de Estudiantes Encuestados segun el Ciclo el que cruzan")
+
+#Grafica de Escuela Academica Profecional
+
+PEscuelaP<- BDT %>% 
+  group_by(`Escuela Profesional`) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
+
+ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  theme_classic2() + 
+  coord_flip() +
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales")
+
+
+
+
+ggplot(BDT, aes(x=`Escuela Profesional`)) + 
+  geom_bar(aes(fill=Genero)) + 
+  theme_classic() +
+  coord_flip() +
+  #geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales y Genero")
+
+
+
+
+#================================================================================================================================================================================================================================================#
+#                       AYUDAS
+#================================================================================================================================================================================================================================================#
+
+# https://germangfeler.github.io/datascience/barras-y-tortas/                               ++++++++
+# https://www.youtube.com/watch?v=aJBiXcjQZiA                                               ++ Barras
+# https://www.youtube.com/watch?v=EQNm0Dcte3Y                                               ++ Pastel
+# http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html    +++ Colores
 
