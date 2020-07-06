@@ -111,12 +111,13 @@ ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) +
 
 
 
-ggplot(BDT, aes(x=`Escuela Profesional`)) + 
+ggplot(BDT, aes(x=`Escuela Profesional`), aes(y = (..count..)/sum(..count..))) + 
   geom_bar(aes(fill=Genero)) + 
-  theme_classic() +
+  theme_cleveland() +
   coord_flip() +
   #geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales y Genero")
+  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales y Genero") +  
+  scale_y_continuous("Porcentaje",labels=scales::percent)
 
 
 
@@ -129,4 +130,12 @@ ggplot(BDT, aes(x=`Escuela Profesional`)) +
 # https://www.youtube.com/watch?v=aJBiXcjQZiA                                               ++ Barras
 # https://www.youtube.com/watch?v=EQNm0Dcte3Y                                               ++ Pastel
 # http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html    +++ Colores
+# https://es.r4ds.hadley.nz/comunicar-con-gr%C3%A1ficos.html#escalas                        +++ Colores y Mas
+
+#================================================================================================================================================================================================================================================#
+#                       Guias GGPLOP2
+#================================================================================================================================================================================================================================================#
+
+# https://bookdown.org/gboccardo/manual-ED-UCH/construccion-de-graficos-usando-rstudio-funcionalidades-basicas-y-uso-del-paquete-ggplot2.html       +++Guia Ggplop2
+# https://arcruz0.github.io/libroadp/dataviz.html
 
