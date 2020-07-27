@@ -85,6 +85,7 @@ ggplot(PEdad, aes(x=Edad, y=Porcentaje)) +
 # NOTA: para titulos mejor editados
 # theme(plot.title = element_text(family = "Serif", size=rel(1.5), vjust=0.5 , hjust=0.5, face="italic", color="Red",lineheigh=1.5))
 
+
 # Grafica para Ciclo
 
 PCiclo<- BDT %>% 
@@ -122,20 +123,37 @@ ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) +
 
 # Grafica de Items
 
-
-PEscuelaP<- BDT %>% 
-  group_by(`Escuela Profesional`) %>% 
+PItems1<- BDT %>% 
+  group_by(`ITEM01`) %>% 
   count() %>% 
   ungroup() %>% 
   mutate(Porcentaje=`n`/sum(`n`) * 100)
 
-ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) + 
+ggplot(PItems1, aes(x=`ITEM01`, y=Porcentaje)) + 
   geom_bar(stat="identity", fill="steelblue") + 
   theme_cleveland() + 
   coord_flip() +
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales") + 
-  labs(x="Escuelas Academicas Profesionales",y="Porcentaje (%)")
+  labs(x="Item1",y="Porcentaje (%)") +
+  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
+  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
+
+
+PItems2<- BDT %>% 
+  group_by(`ITEM02`) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
+
+ggplot(PItems2, aes(x=`ITEM02`, y=Porcentaje)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  theme_cleveland() + 
+  coord_flip() +
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  labs(x="Item1",y="Porcentaje (%)") +
+  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
+  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
+
 
 
 
