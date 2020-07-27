@@ -45,7 +45,7 @@ semPaths(AFCSixFactor, intercepts = FALSE,edge.label.cex=1, optimizeLatRes = TRU
 #                       ANALISIS DESCRIPTIVOS
 #================================================================================================================================================================================================================================================#
 
-#Grafica de la Genero
+# Grafica de la Genero
 
 PGenero<-BDT %>% 
   group_by(Genero) %>% 
@@ -75,10 +75,17 @@ ggplot(PEdad, aes(x=Edad, y=Porcentaje)) +
   theme_cleveland() + 
   coord_flip() + 
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Edad de los Estudiantes Encuestados")
-# NOTA: CORREGIR EL EJE X
+  ggtitle("Edad de los Estudiantes Encuestados") + scale_x_continuous(breaks = seq(16,32,1)) + 
+  scale_y_continuous(breaks = seq(0,20,2)) + labs(x="Edad",y="Porcentaje (%)") +
+  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
+  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
 
-#Grafica para Ciclo
+# NOTA: scale_x_continuous(breaks = seq(17,32,1)) es para darle los rangos en los ejes
+
+# NOTA: para titulos mejor editados
+# theme(plot.title = element_text(family = "Serif", size=rel(1.5), vjust=0.5 , hjust=0.5, face="italic", color="Red",lineheigh=1.5))
+
+# Grafica para Ciclo
 
 PCiclo<- BDT %>% 
   group_by(Ciclo) %>% 
@@ -91,9 +98,11 @@ ggplot(PCiclo, aes(x=Ciclo, y=Porcentaje)) +
   theme_cleveland() + 
   coord_flip() + #Grafica Horizontal
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Procentaje de Estudiantes Encuestados segun el Ciclo el que cruzan")
+  ggtitle("Procentaje de Estudiantes Encuestados segun el Ciclo el que cruzan") + labs(x="Ciclo",y="Porcentaje (%)") +
+  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
+  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
 
-#Grafica de Escuela Academica Profecional
+# Grafica de Escuela Academica Profecional
 
 PEscuelaP<- BDT %>% 
   group_by(`Escuela Profesional`) %>% 
@@ -106,18 +115,28 @@ ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) +
   theme_cleveland() + 
   coord_flip() +
   geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales")
+  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales") + 
+  labs(x="Escuelas Academicas Profesionales",y="Porcentaje (%)") +
+  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
+  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
+
+# Grafica de Items
 
 
+PEscuelaP<- BDT %>% 
+  group_by(`Escuela Profesional`) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(Porcentaje=`n`/sum(`n`) * 100)
 
-
-ggplot(BDT, aes(x=`Escuela Profesional`), aes(y = (..count..)/sum(..count..))) + 
-  geom_bar(aes(fill=Genero)) + 
-  theme_cleveland() +
+ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) + 
+  geom_bar(stat="identity", fill="steelblue") + 
+  theme_cleveland() + 
   coord_flip() +
-  #geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales y Genero") +  
-  scale_y_continuous("Porcentaje",labels=scales::percent)
+  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
+  ggtitle("Estudiantes encuestados sengun sus Escuelas Academicas Profesionales") + 
+  labs(x="Escuelas Academicas Profesionales",y="Porcentaje (%)")
+
 
 
 
@@ -131,6 +150,7 @@ ggplot(BDT, aes(x=`Escuela Profesional`), aes(y = (..count..)/sum(..count..))) +
 # https://www.youtube.com/watch?v=EQNm0Dcte3Y                                               ++ Pastel
 # http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html    +++ Colores
 # https://es.r4ds.hadley.nz/comunicar-con-gr%C3%A1ficos.html#escalas                        +++ Colores y Mas
+#https://www.youtube.com/watch?v=1QTMide5wUA                                                +++ Editor de ejes
 
 #================================================================================================================================================================================================================================================#
 #                       Guias GGPLOP2
@@ -138,4 +158,6 @@ ggplot(BDT, aes(x=`Escuela Profesional`), aes(y = (..count..)/sum(..count..))) +
 
 # https://bookdown.org/gboccardo/manual-ED-UCH/construccion-de-graficos-usando-rstudio-funcionalidades-basicas-y-uso-del-paquete-ggplot2.html       +++Guia Ggplop2
 # https://arcruz0.github.io/libroadp/dataviz.html
+
+
 
