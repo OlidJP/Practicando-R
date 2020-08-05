@@ -125,23 +125,7 @@ ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) +
   theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
   theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
 
-# Grafica de Items
-
-
-PItems1<- BDT %>% 
-  group_by(`ITEM01`) %>% 
-  count() %>% 
-  ungroup() %>% 
-  mutate(Porcentaje=`n`/sum(`n`) * 100)
-
-ggplot(PItems1, aes(x=`ITEM01`, y=Porcentaje)) + 
-  geom_bar(stat="identity", fill="steelblue") + 
-  theme_cleveland() + 
-  coord_flip() +
-  geom_text(aes(label = paste0(round(Porcentaje,1),"%")), position = position_stack(vjust = 0.5)) + 
-  labs(x="Item1",y="Porcentaje (%)") +
-  theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
-  theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
+# Grafica de Items (usaremos la BDitem)
 
 
 PItems2<- BDT %>% 
@@ -158,6 +142,7 @@ ggplot(PItems2, aes(x=`ITEM02`, y=Porcentaje)) +
   labs(x="Item1",y="Porcentaje (%)") +
   theme(axis.title.x = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2))) +
   theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
+
 
 
 
