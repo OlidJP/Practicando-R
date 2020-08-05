@@ -14,9 +14,13 @@ packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2"
               "semPlot", "lavaan", "MVN", "semTools")
 ipak(packages)
 
-#Importar la Base de Datos
+#Importar la Base de Datos (Original)
 BDT <- read_excel("G:/OLID JP/GitHub Repositorio/Practicando-R/BaseDatos-Tesis.xlsx")
 View(BDT)
+
+#Importar la base de datos para trabajar itmes, BD normalizado en powerQuery
+BDitem <- read_excel("G:/OLID JP/GitHub Repositorio/Practicando-R/BD-Tesis-Reporte.xlsx", sheet = "Cuadro")
+View(BDitem)
 
 #Especificación del modelo conceptual
 SixFactor<-'EA=~ ITEM08 + ITEM09 + ITEM14 + ITEM16 + ITEM18 + ITEM19 + ITEM25 + ITEM40 + ITEM45
@@ -122,6 +126,7 @@ ggplot(PEscuelaP, aes(x=`Escuela Profesional`, y=Porcentaje)) +
   theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
 
 # Grafica de Items
+
 
 PItems1<- BDT %>% 
   group_by(`ITEM01`) %>% 
