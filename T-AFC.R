@@ -15,7 +15,7 @@ packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2"
 ipak(packages)
 
 #Importar la Base de Datos
-BDT <- read_excel("G:/OLID JP/GitHub Repositorio/Practicando-R/BDTesis-DLA.xlsx")
+BDT <- read_excel("G:/OLID JP/GitHub Repositorio/Practicando-R/BaseDatos-Tesis.xlsx")
 View(BDT)
 
 #Especificación del modelo conceptual
