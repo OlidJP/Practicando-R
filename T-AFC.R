@@ -9,7 +9,7 @@ ipak <- function(pkg){
   sapply(pkg, require, character.only = TRUE)
 }
 # Paquetes a Usar
-packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplot2","ggpubr","gridExtra",
+packages <- c("dplyr","readxl","parameters","apa", "apaTables","haven","ggplopt2","ggpubr","gridExtra",
               "apaTables", "reshape", "GPArotation", "mvtnorm", "psych", "psychometric", "lavaan", "nFactors",
               "semPlot", "lavaan", "MVN", "semTools")
 ipak(packages)
