@@ -144,7 +144,7 @@ ggplot(PItems2, aes(x=`ITEM02`, y=Porcentaje)) +
   theme(axis.title.y = element_text(face="bold",vjust=0.5, color="steelblue",size=rel(1.2)))
 
 
-
+#:`c`
 
 
 
