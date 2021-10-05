@@ -169,3 +169,5 @@ ggplot(PItems2, aes(x=`ITEM02`, y=Porcentaje)) +
 
 
 
+
+
